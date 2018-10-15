@@ -4,6 +4,8 @@
 # Miniproject: 2048 game.
 # ---------------------------------------------------------------------- 
 
+import random, sys
+
 def make_board():
     '''
     Create a game board in its initial state.

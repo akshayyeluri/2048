@@ -1,4 +1,4 @@
-import midterm
+import engine
 from tkinter import *
 
 
@@ -69,10 +69,10 @@ class GUIBoard:
             cmd = movesDict[event.keysym]
             self.boardLastStates.append(self.board.copy())
             # Save last state of board for undo option.
-            midterm.update(self.board, cmd)
+            engine.update(self.board, cmd)
             self.updateGUIBoard()
             self.displayText('Enter Move: ')
-        if midterm.game_over(self.board):
+        if engine.game_over(self.board):
             self.displayText('Game over!')
             quit()
 
@@ -155,7 +155,7 @@ if __name__ == '__main__':
     root.geometry('800x800')
     canvas = Canvas(root, width=800, height=800)
     canvas.pack()
-    guiBoard = GUIBoard(midterm.make_board(), canvas)
+    guiBoard = GUIBoard(engine.make_board(), canvas)
     root.bind('<Key>', guiBoard.keyHandler)
     guiBoard.displayText("Welcome to Akshay's 2048 GUI!")
     root.mainloop()
