@@ -1,4 +1,3 @@
-# Name: Akshay Yeluri
 # Login: ayeluri
 
 # Please don't grade this one, I just thought it was pretty cool that it worked.
@@ -9,6 +8,7 @@
 
 from tkinter import *
 import random, sys
+        
 
 class GUIBoard:
     def __init__(self, board, canvas):
@@ -56,6 +56,7 @@ class GUIBoard:
             quit()
 
 class Square:
+
     def __init__(self, canvas, pos, value, board, guiBoard):
         self.value = value
         colorValueDict = { 2: '#ffffff',
@@ -84,25 +85,30 @@ class Square:
         self.grow()
     
     def glide(self, pos):
+        incrementerX, incrementerY = 50, 50
         del self.board[self.pos]
         x1, y1 = self.gui.getLoc(self.pos)
         x2, y2 = self.gui.getLoc(pos)
-        incrementerX, incrementerY = 20, 20
         amountToMoveX = x2 - x1
         amountToMoveY = y2 - y1
+        dirX, dirY = 1, 1
         if amountToMoveX < 0:
-            incrementerX = - incrementerX
+            dirX = -1
+            amountToMoveX *= -1
         if amountToMoveY < 0:
-            incrementerY = - incrementerY
-        while amountToMoveX:
-            self.canvas.after(1, self.canvas.move(self.handle, incrementerX, 0))
-            self.canvas.move(self.textHandle, incrementerX, 0)
-            amountToMoveX -= incrementerX
+            dirY = -1
+            amountToMoveY *= -1
+        while amountToMoveX > 0:
+            dx = min(amountToMoveX, incrementerX)
+            self.canvas.after(1, self.canvas.move(self.handle, dirX * dx, 0))
+            self.canvas.move(self.textHandle, dirX * dx, 0)
+            amountToMoveX -= dx
             self.canvas.update()
-        while amountToMoveY:
-            self.canvas.after(1, self.canvas.move(self.handle, 0, incrementerY))
-            self.canvas.move(self.textHandle, 0 , incrementerY)
-            amountToMoveY -= incrementerY
+        while amountToMoveY > 0:
+            dy = min(amountToMoveY, incrementerY)
+            self.canvas.after(1, self.canvas.move(self.handle, 0, dirY * dy))
+            self.canvas.move(self.textHandle, 0 , dirY * dy)
+            amountToMoveY -= dy
             self.canvas.update()
         self.pos = pos
         self.board[pos] = self

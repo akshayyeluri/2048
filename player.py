@@ -129,7 +129,7 @@ class Square:
         till its the size specified in the constructor statement.'''
         x1o, y1o = self.loc
         x2o, y2o = x1o, y1o
-        sizes = list(range(0, self.size // 2 + 1, 12))
+        sizes = list(range(0, self.size // 2 + 1, 24))
         if rev:
             sizes.reverse()
         for i in sizes:
